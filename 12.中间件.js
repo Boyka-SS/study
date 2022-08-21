@@ -25,6 +25,16 @@
  * 定义多个全局中间件
  *  可以使用app.use（）连续定义多个全局中间件。
  *  客户端请求到达服务器之后，会按照中间件定义的先后顺序依次进行调用
+ * 
+ * 局部中间件
+ *  不使用app.use0定义的中间件，叫做局部生效的中间件.
+ * 
+ * 注意事项：
+ *  ①一定要在路由之前注册中间件
+ *  ②客户端发送过来的请求，可以连续调用多个中间件进行处理
+ *  ③执行完中间件的业务代码之后，不要忘记调用next()函数
+ *  ④为了防止代码逻辑混乱，调用next(函数后不要再写额外的代码 )
+ *  ⑤连续调用多个中间件时，多个中间件之间，共享req和res对象
  */
 
 const express = require('express')
@@ -49,6 +59,27 @@ app.use(function (req, res, next) {
 })
 
 app.get('/user/list', (req, res) => {
+    res.send(`get user list ${req.startTime}`)
+})
+
+//局部中间件
+const mw1 = function (req, res, next) {
+    next()
+}
+const mw2 = function (req, res, next) {
+    next()
+}
+//这个中间件只在"当前路由中生效"，这种用法属于”局部生效的中间件”
+//请求先经过中间件，之后再进入路由处理函数
+app.post('/', mw1, (req, res) => {
+    res.send(`get user list ${req.startTime}`)
+})
+//定义多个局部中间件
+app.get('/user/add', mw1, mw2, (req, res) => {
+    res.send(`get user list ${req.startTime}`)
+})
+//定义多个局部中间件
+app.get('/user/delete', [mw1, mw2], (req, res) => {
     res.send(`get user list ${req.startTime}`)
 })
 
