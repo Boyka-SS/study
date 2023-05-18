@@ -1,0 +1,1 @@
+> [原文链接](https://github.com/jerryscript-project/jerryscript/blob/master/docs/04.INTERNALS.md)，本文主翻译
