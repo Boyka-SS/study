@@ -1,4 +1,3 @@
-[ toc ]
 
 ## 一、shell变量
 
@@ -73,8 +72,38 @@ unset variable_name
 ## 二、shell变量作用域
 
 Shell 变量的作用域可以分为三种：
-- 有的变量只能在函数内部使用，这叫做 **局部变量** （local variable）
-- 有的变量可以在当前 Shell 进程中使用，这叫做 **全局变量** （global variable）
-- 而有的变量还可以在子进程中使用，这叫做 **环境变量** （environment variable）
+- 变量_只能在函数内部使用_，这叫做 **局部变量** （local variable）
+- 变量可以在 _当前 Shell 进程中_ 使用，这叫做 **全局变量** （global variable）
+- 而有的变量还可以 _在子进程中_ 使用，这叫做 **环境变量** （environment variable）
 
 ### 1 局部变量
+
+_在Shell函数中定义的变量默认是全局变量，_在函数外部也可以得到它的值。但是**要想变量的作用域仅限于函数内部，可以使用`local`命令**。
+
+``shell
+#!/bin/bash
+
+#定义函数
+function func(){
+  local a=99
+}
+
+echo ${a}
+``
+
+### 2 全局变量
+
+全局变量就是指变量在当前的Shell进程中都有效。每个Shell进程都有自己的作用域，彼此独立。
+
+**在Shell中定义的变量，默认是全局变量**
+
+需要强调的是，全局变量的作用范围是当前的 Shell 进程，而不是当前的 Shell 脚本文件，它们是不同的概念。
+打开一个 Shell 窗口就创建了一个 Shell 进程，打开多个 Shell 窗口就创建了多个 Shell 进程，每个 Shell 进程都是独立的，拥有不同的进程 ID。
+在一个 Shell 进程中可以使用 source 命令执行多个 Shell 脚本文件，此时全局变量在这些脚本文件中都有效。
+
+> 需要在同一个进程中，多个shell脚本文件才可以共享全局变量。（运行方式：source filename.sh）
+
+### 3 环境变量
+
+
+
