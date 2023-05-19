@@ -1,4 +1,4 @@
-[TOC]
+[ toc ]
 
 ## 一、shell变量
 
@@ -77,4 +77,4 @@ Shell 变量的作用域可以分为三种：
 - 有的变量可以在当前 Shell 进程中使用，这叫做 **全局变量** （global variable）
 - 而有的变量还可以在子进程中使用，这叫做 **环境变量** （environment variable）
 
-
+### 1 局部变量
