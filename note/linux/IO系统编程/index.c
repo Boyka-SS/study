@@ -1,23 +1,25 @@
-#include <fcntl.h>
 #include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-int main(int argc, char* argv[]) {
-  FILE* fp;
-  char buf[] = "hello linux\n";
-  char readbuf[128] = {0};
-  fp = fopen("./a.c", "w+");
-  if (fp == NULL) {
-    printf("open file a.c failure\n");
+#include <sys/types.h>
+#include <dirent.h>
+
+int main()
+{
+  int ret;
+  DIR *dp;
+  ret = mkdir("./cc", 0777);
+  if (ret < 0)
+  {
+    printf("create cc failure\n");
     return -1;
   }
-  printf("open file a.c success\n");
-
-  fwrite(buf, sizeof(char), sizeof(buf), fp);
-  rewind(fp);
-  fread(readbuf, sizeof(char), sizeof(readbuf), fp);
-
-  printf("readbuf:%s\n", readbuf);
-  fclose(fp);
+  printf("create cc success\n");
+  dp = opendir("./cc");
+  if (dp == NULL)
+  {
+    printf("open cc failure\n");
+    return -2;
+  }
+  printf("open cc success\n");
+  closedir(dp);
   return 0;
 }
