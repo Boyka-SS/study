@@ -61,3 +61,4 @@ Car::Car(int price, int radius, int width): m_price(price), m_tyre(radius, width
 
 > 构造时，先构造里面，再构造外面；析构时，先析构外面，再析构里面
 > 倒立的金字塔，先修建“塔尖”，再修边围；毁坏时，先毁坏边围，再毁坏塔尖
+> **塔尖是成员对象，塔底是封闭类**
