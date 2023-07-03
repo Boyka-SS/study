@@ -1,7 +1,28 @@
+````c
+
+void simpleSelectSort(int *const arr, int length)
+{
+	int *tmpArr = arr;
+	int tmp = 0;
+	for (int i = 0; i < length; i++)
+	{
+		for (int j = i + 1; j < length; j++)
+		{
+			if (*(tmpArr + j) > *(tmpArr + j - 1))
+			{
+				tmp = *(tmpArr + j);
+				*(tmpArr + j) = *(tmpArr + j - 1);
+				*(tmpArr + j - 1) = tmp;
+			}
+		}
+	}
+}
+```c
+
 #### 阶乘
 
 ```c
-int getFac(int n){
+int getFactorial(int n){
 	int result;
 	if(n==1){
 	    result = 1;
@@ -10,7 +31,7 @@ int getFac(int n){
 	}
 	return result;
 }
-```
+````
 
 #### 二分查找
 
