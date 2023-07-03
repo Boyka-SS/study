@@ -1,3 +1,17 @@
+#### 阶乘
+
+```c
+int getFac(int n){
+	int result;
+	if(n==1){
+	    result = 1;
+	}else{
+	    result = getFac(n-1) * n;
+	}
+	return result;
+}
+```
+
 #### 二分查找
 
 ```c
@@ -23,10 +37,6 @@ int binarySearch(List tb1,ElementType K){
 }
 ```
 
-
-
-
-
 #### 快排
 
 ```c
@@ -47,10 +57,6 @@ int cmp(const void *a,const void * b){
 }
 ```
 
-
-
-
-
 #### 时钟打点
 
 ```c
@@ -68,7 +74,7 @@ int main(){
     stop=clock();
     /* 其他不在测试范围的处理写在后面，例如输出duration的值*/
     duration=((double)(stop-start))/CLK_TCK;
-    
+
     return 0;
 }
 ```
@@ -79,13 +85,9 @@ int main(){
 >
 > 常数 `CLK_TCK`：机器时钟每秒所走的时钟打点数
 >
-> 存在全为0的情况：运行时间不超过一个tick
+> 存在全为 0 的情况：运行时间不超过一个 tick
 
-
-
-
-
-#### 打印main函数参数
+#### 打印 main 函数参数
 
 ```c
 #include<stdio.h>
@@ -98,20 +100,24 @@ int main(int argc, char **argv) {
 }
 ```
 
-
-
 #### 冒泡排序
 
 ```c
-int temp = 0;
-for(int i = 0; i < sizeof(arr) / sizeof(int); i++) {
-	for(int j = i; j < sizeof(arr) / sizeof(int); j++) {
-    	if(arr[i] > arr[j]) {
-        	temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
+void bubbleSort(int * const arr,int length){
+	int *tmpArr = arr;
+	int tmp=0;
+	for(int i=0;i<length -1;i++){
+		for(int j=0;j<length-1-i;j++){
+			if(*(tmpArr+j)>*(tmpArr+j+1)){
+				tmp = *(tmpArr+j);
+				*(tmpArr+j)=*(tmpArr+j+1);
+				*(tmpArr+j+1)=tmp;
+			}
+		}
+	}
+	for(int i=0;i<length;i++){
+		printf("%d ",*(tmpArr+i));
+	}
 }
 ```
 
@@ -137,17 +143,17 @@ for(int i = 0; i < sizeof(arr) / sizeof(int); i++) {
 #endif
 ```
 
-> 如果当前的宏已被定义过，则对“程序段1”进行编译，否则对“程序段2”进行编译。
+> 如果当前的宏已被定义过，则对“程序段 1”进行编译，否则对“程序段 2”进行编译。
 
 ```c
 #ifndef 宏名
-    程序段1 
-#else 
-    程序段2 
+    程序段1
+#else
+    程序段2
 #endif
 ```
 
-> 如果当前的宏未被定义，则对“程序段1”进行编译，否则对“程序段2”进行编译
+> 如果当前的宏未被定义，则对“程序段 1”进行编译，否则对“程序段 2”进行编译
 
 ![](C:\Users\HP\Desktop\笔记\images\QQ截图20230213163011.png)
 
@@ -170,18 +176,18 @@ int main() {
 
   //   int(*p)[4] = &arr[0];
   int(*p)[4] = arr;
- 
+
   int i = 0;
   printf("%p\n", p );//0061FEE8
   printf("%p\n", arr);//0061FEE8
   printf("%p\n", arr[0]);//0061FEE8
-  
+
   printf("%p\n", p+1 );//0061FEF8
   printf("%p\n", arr[1]);//0061FEF8
-  
+
   for (; i < 4; i++) {
     printf("%d ", *(p[0] + i));
-  }// 0 1 2 3 
+  }// 0 1 2 3
   p = p + 1;
   printf("\n");
   for (i = 0; i < 4; i++) {
@@ -335,7 +341,7 @@ enum typename {valueName1, valueName2, valueName3, ...... } var1=valuName1,var2=
 
 ```c
 union union_name{
-  //成员列表  
+  //成员列表
 };
 ```
 
@@ -362,7 +368,7 @@ union{
 union data a, b, c;
 ```
 
-#### 文件IO
+#### 文件 IO
 
 ##### `fopen`打开流
 
@@ -384,13 +390,10 @@ int main(int argc,char **args){
 FILE* fopen(const char * path,const char *mode)
 ```
 
-- <u>*成功时返回流指针，出错时返回NULL*</u>
+-   <u>_成功时返回流指针，出错时返回 NULL_</u>
 
-  
-
-【mode取值】：
+【mode 取值】：
 ![输入图片说明](https://foruda.gitee.com/images/1677570951588663906/967d276c_8027319.png "Snipaste_2023-02-28_15-02-58.png")
-
 
 ##### 处理错误信息
 
@@ -402,11 +405,11 @@ char * strerror(int errno);
 
 `errno` 存放错误号
 
-`perror` 先输出s，再输出错误号对应的错误信息
+`perror` 先输出 s，再输出错误号对应的错误信息
 
 `strerror` 根据错误号返回对应的错误信息
 
-##### fclose关闭流
+##### fclose 关闭流
 
 ```c
 #include<stdio.h>
@@ -427,10 +430,10 @@ int main(int argc,char **args){
 int fclose(FILE *stream);
 ```
 
-- <u>*调用成功返回0，失败返回EOF，并设置errno*</u>
-- <u>*流关闭时自动刷新缓冲区中的数据并释放缓冲区*</u>
-- <u>*当一个程序正常终止时，所有打开的流都会被关闭*</u>
-- <u>*流一旦关闭后就不能执行任何操作*</u>
+-   <u>_调用成功返回 0，失败返回 EOF，并设置 errno_</u>
+-   <u>_流关闭时自动刷新缓冲区中的数据并释放缓冲区_</u>
+-   <u>_当一个程序正常终止时，所有打开的流都会被关闭_</u>
+-   <u>_流一旦关闭后就不能执行任何操作_</u>
 
 ##### `fgets//fputs`
 
@@ -462,14 +465,14 @@ int main(int argc, const char *argv[]){
         printf("fail to open file\n");
         exit(0);
     }
-    
+
     while(fgets(str,N,fp)!=NUlLL){
         printf("%s\n",str);
     }
-    
+
     char *str="fanlihao";
     fputs(str,fp);
-    
+
     fclose(fp);
     return 0;
 }
@@ -479,9 +482,9 @@ int main(int argc, const char *argv[]){
 >
 > 以二进制读取写入文件数据时，无需多大变化；
 >
-> 以文本文件时，主要处理window系统`\r\n`换行符问题
+> 以文本文件时，主要处理 window 系统`\r\n`换行符问题
 >
-> 总结：在window系统上，用`t`打开文本文件，用`b`打开二进制文件；在其它系统无所谓bt。
+> 总结：在 window 系统上，用`t`打开文本文件，用`b`打开二进制文件；在其它系统无所谓 bt。
 
 ##### `fgetc//fputc`：一次读写一个字符
 
@@ -497,7 +500,7 @@ int fputc(int c, FILE *stream);
 
 int main(){
     FILE * fp = fopen("xxx","rt");
-    
+
     if(fp==NULL){
         printf("fail to open file\n");
         exit(0);
@@ -512,14 +515,12 @@ int main(){
 }
 ```
 
-
-
 ```c
 #include<stdio.h>
 
 int main(){
     FILE * fp = fopen("xxx","w+");
-    
+
     if(fp==NULL){
         printf("fail to open file\n");
         exit(0);
@@ -529,13 +530,13 @@ int main(){
            fputc(ch,fp);
     }
     putchar("\n");
-    
+
     fclose(fp);
     return 0;
 }
 ```
 
-> `EOF`：本意文件末尾表示读取结束。但存在出错情况也返回EOF。如果判断是出错还是读取结束？
+> `EOF`：本意文件末尾表示读取结束。但存在出错情况也返回 EOF。如果判断是出错还是读取结束？
 >
 > `feof`用来判断文件内部指针是否指向了文件末尾
 >
@@ -567,16 +568,16 @@ size_t fwrite ( void * ptr, size_t size, size_t count, FILE *fp );
 
 【参数】
 
-- `ptr`：fread() 中的 ptr 用来存放读取到的数据，fwrite() 中的 ptr 用来存放要写入的数据。
-- `size`：表示每个数据块的字节数
-- `count`：表示要读写的数据块的块数。
-- `fp`：表示文件指针
+-   `ptr`：fread() 中的 ptr 用来存放读取到的数据，fwrite() 中的 ptr 用来存放要写入的数据。
+-   `size`：表示每个数据块的字节数
+-   `count`：表示要读写的数据块的块数。
+-   `fp`：表示文件指针
 
 【返回值】
 
-- 返回成功读写的块数，也即 count。如果返回值小于 count：
-  - 对于 fwrite() 来说，肯定发生了写入错误，可以用 ferror() 函数检测。
-  - 对于 fread() 来说，可能读到了文件末尾，可能发生了错误，可以用 ferror() 或 feof() 检测。
+-   返回成功读写的块数，也即 count。如果返回值小于 count：
+    -   对于 fwrite() 来说，肯定发生了写入错误，可以用 ferror() 函数检测。
+    -   对于 fread() 来说，可能读到了文件末尾，可能发生了错误，可以用 ferror() 或 feof() 检测。
 
 ```c
 #include <stdio.h>
@@ -611,12 +612,6 @@ int main(int argc, const char *argv[]) {
     return 0;
 }
 ```
-
-
-
-
-
-
 
 ##### `fscanf//fprintf`
 
@@ -692,17 +687,17 @@ int fseek ( FILE *fp, long offset, int origin );
 
 【参数】
 
--  `fp` ：被移动的文件
+-   `fp` ：被移动的文件
 
-- `offset` ：偏移量，要移动的字节数
+-   `offset` ：偏移量，要移动的字节数
 
-- `origin`：起始位置，也就是从何处开始计算偏移量
+-   `origin`：起始位置，也就是从何处开始计算偏移量
 
-  | 起始点   | 常量名   | 常量值 |
-  | -------- | -------- | ------ |
-  | 文件开头 | SEEK_SET | 0      |
-  | 当前位置 | SEEK_CUR | 1      |
-  | 文件末尾 | SEEK_END | 2      |
+    | 起始点   | 常量名   | 常量值 |
+    | -------- | -------- | ------ |
+    | 文件开头 | SEEK_SET | 0      |
+    | 当前位置 | SEEK_CUR | 1      |
+    | 文件末尾 | SEEK_END | 2      |
 
 > fseek() 一般用于二进制文件，在文本文件中由于要进行转换，计算的位置有时会出错。
 
@@ -813,11 +808,9 @@ int main() {
 }
 ```
 
-
-
 > 【问题】
 >
-> 使用fread/fwrite会存在最后一个缓存数组写不满的情况，空数组元素自动赋值NULL，这些NULL也会被写进文件。使用fgetc/fputc就没这种事情。
+> 使用 fread/fwrite 会存在最后一个缓存数组写不满的情况，空数组元素自动赋值 NULL，这些 NULL 也会被写进文件。使用 fgetc/fputc 就没这种事情。
 
 #### 【案例】获取文件大小——`ftell`
 
@@ -851,8 +844,6 @@ long fsize(FILE *fp){
 //fgetpos() 用来获取文件内部指针，fsetpos() 用来设置文件内部指针。
 ```
 
-
-
 > ```c
 > typedef struct _iobuf {
 >     int cnt;  // 剩余的字符，如果是输入缓冲区，那么就表示缓冲区中还有多少个字符未被读取
@@ -868,13 +859,9 @@ long fsize(FILE *fp){
 
 #### 内存管理
 
-
-
-
-
 #### 进程
 
-##### fork创建子进程
+##### fork 创建子进程
 
 ```c
 #include<sys/types.h>
@@ -884,4 +871,3 @@ pid_t fork(void);
 ```
 
 调用失败返回-1
-
