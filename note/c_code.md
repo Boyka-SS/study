@@ -1,23 +1,34 @@
-````c
+#### 简单选择排序
 
+```c
+/**
+ *
+ * 简单选择排序
+ *
+ * 1. 从头到尾顺序扫描序列，找出最小的元素与第一位进行交换（扫描数组，找到最小的元素替换到第一位）
+ * 2. 一次排序完成后肯定能找到最小的元素
+ * 3. 从剩下的无序队列中选出最小关键字与第一位进行交换
+ *
+ */
 void simpleSelectSort(int *const arr, int length)
 {
 	int *tmpArr = arr;
 	int tmp = 0;
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < length-1; i++)
 	{
 		for (int j = i + 1; j < length; j++)
 		{
-			if (*(tmpArr + j) > *(tmpArr + j - 1))
+			if (*(tmpArr + j) > *(tmpArr +i))
 			{
 				tmp = *(tmpArr + j);
-				*(tmpArr + j) = *(tmpArr + j - 1);
-				*(tmpArr + j - 1) = tmp;
+				*(tmpArr + j) = *(tmpArr +i);
+				*(tmpArr + i) = tmp;
 			}
 		}
 	}
 }
-```c
+
+```
 
 #### 阶乘
 
@@ -31,7 +42,7 @@ int getFactorial(int n){
 	}
 	return result;
 }
-````
+```
 
 #### 二分查找
 
@@ -124,6 +135,19 @@ int main(int argc, char **argv) {
 #### 冒泡排序
 
 ```c
+/**
+ * 冒泡排序
+ *
+ * 对存放原始数据的数组，按从前往后的方向多次扫描，每次扫描称为 一轮
+ *
+ * 当发现相邻的两个数据的次序与排序要求的大小次序不符合时，进行数据交换
+ *
+ *
+ * 特点：升序排序中每一轮比较会把最大的数沉到最底，所以相互比较的次数每一轮都会比前一轮少一次
+ *
+ * 对N个数排序，则需要N-1轮比较
+ *
+*/
 void bubbleSort(int * const arr,int length){
 	int *tmpArr = arr;
 	int tmp=0;
@@ -411,7 +435,7 @@ int main(int argc,char **args){
 FILE* fopen(const char * path,const char *mode)
 ```
 
--   <u>_成功时返回流指针，出错时返回 NULL_</u>
+- <u>_成功时返回流指针，出错时返回 NULL_</u>
 
 【mode 取值】：
 ![输入图片说明](https://foruda.gitee.com/images/1677570951588663906/967d276c_8027319.png "Snipaste_2023-02-28_15-02-58.png")
@@ -451,10 +475,10 @@ int main(int argc,char **args){
 int fclose(FILE *stream);
 ```
 
--   <u>_调用成功返回 0，失败返回 EOF，并设置 errno_</u>
--   <u>_流关闭时自动刷新缓冲区中的数据并释放缓冲区_</u>
--   <u>_当一个程序正常终止时，所有打开的流都会被关闭_</u>
--   <u>_流一旦关闭后就不能执行任何操作_</u>
+- <u>_调用成功返回 0，失败返回 EOF，并设置 errno_</u>
+- <u>_流关闭时自动刷新缓冲区中的数据并释放缓冲区_</u>
+- <u>_当一个程序正常终止时，所有打开的流都会被关闭_</u>
+- <u>_流一旦关闭后就不能执行任何操作_</u>
 
 ##### `fgets//fputs`
 
@@ -589,16 +613,16 @@ size_t fwrite ( void * ptr, size_t size, size_t count, FILE *fp );
 
 【参数】
 
--   `ptr`：fread() 中的 ptr 用来存放读取到的数据，fwrite() 中的 ptr 用来存放要写入的数据。
--   `size`：表示每个数据块的字节数
--   `count`：表示要读写的数据块的块数。
--   `fp`：表示文件指针
+- `ptr`：fread() 中的 ptr 用来存放读取到的数据，fwrite() 中的 ptr 用来存放要写入的数据。
+- `size`：表示每个数据块的字节数
+- `count`：表示要读写的数据块的块数。
+- `fp`：表示文件指针
 
 【返回值】
 
--   返回成功读写的块数，也即 count。如果返回值小于 count：
-    -   对于 fwrite() 来说，肯定发生了写入错误，可以用 ferror() 函数检测。
-    -   对于 fread() 来说，可能读到了文件末尾，可能发生了错误，可以用 ferror() 或 feof() 检测。
+- 返回成功读写的块数，也即 count。如果返回值小于 count：
+  - 对于 fwrite() 来说，肯定发生了写入错误，可以用 ferror() 函数检测。
+  - 对于 fread() 来说，可能读到了文件末尾，可能发生了错误，可以用 ferror() 或 feof() 检测。
 
 ```c
 #include <stdio.h>
@@ -708,17 +732,17 @@ int fseek ( FILE *fp, long offset, int origin );
 
 【参数】
 
--   `fp` ：被移动的文件
+- `fp` ：被移动的文件
 
--   `offset` ：偏移量，要移动的字节数
+- `offset` ：偏移量，要移动的字节数
 
--   `origin`：起始位置，也就是从何处开始计算偏移量
+- `origin`：起始位置，也就是从何处开始计算偏移量
 
-    | 起始点   | 常量名   | 常量值 |
-    | -------- | -------- | ------ |
-    | 文件开头 | SEEK_SET | 0      |
-    | 当前位置 | SEEK_CUR | 1      |
-    | 文件末尾 | SEEK_END | 2      |
+  | 起始点   | 常量名   | 常量值 |
+  | -------- | -------- | ------ |
+  | 文件开头 | SEEK_SET | 0      |
+  | 当前位置 | SEEK_CUR | 1      |
+  | 文件末尾 | SEEK_END | 2      |
 
 > fseek() 一般用于二进制文件，在文本文件中由于要进行转换，计算的位置有时会出错。
 
