@@ -1,3 +1,26 @@
+#### 数组倒置
+
+```c
+int array[5] = {66, 88, 33, 44, 22};
+int length = sizeof(array) / sizeof(array[0]);
+reverseArray(array, length);
+
+void reverseArray(int *arr, int size) {
+  int *tmpP = arr;
+  int tmp = 0;
+  for (int i = 0; i < size / 2; i++) {
+    tmp = *(tmpP + i);
+    *(tmpP + i) = *(tmpP + size - 1 - i);
+    *(tmpP + size - 1 - i) = tmp;
+  }
+  // for (int i = 0; i < size / 2; i++) {
+  //   tmp = tmpP[i];
+  //   tmpP[i] = tmpP[size - 1 - i]; 
+  //   tmpP[size - 1 - i] = tmp;
+  // }
+}
+```
+
 #### 简单选择排序
 
 ```c
@@ -8,7 +31,6 @@
  * 1. 从头到尾顺序扫描序列，找出最小的元素与第一位进行交换（扫描数组，找到最小的元素替换到第一位）
  * 2. 一次排序完成后肯定能找到最小的元素
  * 3. 从剩下的无序队列中选出最小关键字与第一位进行交换
- *
  */
 void simpleSelectSort(int *const arr, int length)
 {
@@ -30,7 +52,7 @@ void simpleSelectSort(int *const arr, int length)
 
 ```
 
-#### 阶乘
+#### 阶乘——递归
 
 ```c
 int getFactorial(int n){
